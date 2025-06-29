@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Academic Information and CGPA Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .academic-form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .academic-form h2, .academic-form h3 {
+      text-align: center;
+      color: #333;
+    }
+
+    .academic-form label {
+      font-weight: bold;
+    }
+
+    .academic-form input[type="text"],
+    .academic-form input[type="number"],
+    .academic-form input[type="date"],
+    .academic-form select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .academic-form button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .academic-form button:hover {
+      background-color: #45a049;
+    }
+
+    .semester-section {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #e8f4ea;
+      border-radius: 8px;
+    }
+
+    .semester-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .edit-btn {
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007BFF;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .edit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    input[readonly] {
+      background-color: #e9ecef;
+      border: 1px solid #ccc;
+      padding: 4px;
+    }
+
+    input:not([readonly]) {
+      background-color: #ffffff;
+      border: 1px solid #999;
+    }
+  </style>
+</head>
+<body>
+  <div class="academic-form">
+    <!-- College and Academic Information -->
+    <h2>College Academic Information</h2>
+    <form id="academicForm">
+      <label for="collegeName">College Name:</label>
+      <input type="text" id="collegeName" name="collegeName" required>
+
+      <label for="degree">Degree:</label>
+      <select id="degree" name="degree" required>
+        <option value="">Select Degree</option>
+        <option value="Bachelor's">Bachelor's</option>
+        <option value="Master's">Master's</option>
+        <option value="PhD">PhD</option>
+      </select>
+
+      <label for="major">Major:</label>
+      <input type="text" id="major" name="major" required>
+
+      <label for="attendance">Attendance Percentage:</label>
+      <input type="number" id="attendance" name="attendance" required>
+
+      <label for="graduationDate">Expected Graduation Date:</label>
+      <input type="date" id="graduationDate" name="graduationDate" required>
+
+      <!-- Tutor Information -->
+      <h3>Tutor Information</h3>
+      <label for="tutorName">Tutor Name:</label>
+      <input type="text" id="tutorName" name="tutorName" required>
+
+      <label for="tutorMobile">Tutor Mobile Number:</label>
+      <input type="text" id="tutorMobile" name="tutorMobile" required>
+
+      <label for="tutorEmail">Tutor Email:</label>
+      <input type="email" id="tutorEmail" name="tutorEmail" required>
+
+      <!-- Hostel/Day Scholar Status -->
+      <label for="residencyStatus">Residency Status:</label>
+      <select id="residencyStatus" name="residencyStatus" required>
+        <option value="Hosteller">Hosteller</option>
+        <option value="Day Scholar">Day Scholar</option>
+      </select>
+
+      <!-- HOD and Principal Information -->
+      <h3>HOD and Principal Information</h3>
+      <label for="hodName">HOD Name:</label>
+      <input type="text" id="hodName" name="hodName" required>
+
+      <label for="hodMobile">HOD Mobile Number:</label>
+      <input type="text" id="hodMobile" name="hodMobile" required>
+
+      <label for="hodEmail">HOD Email:</label>
+      <input type="email" id="hodEmail" name="hodEmail" required>
+
+      <label for="principalEmail">Principal Email:</label>
+      <input type="email" id="principalEmail" name="principalEmail" required>
+    </form>
+
+    <!-- Loop to generate 8 semesters -->
+    <div id="semesterContainer">
+      <!-- Semester sections will be generated here -->
+    </div>
+  </div>
+
+  <script>
+    // Function to generate semester sections dynamically
+    function createSemesterSection(semesterNumber) {
+      let subjectsHtml = '';
+      for (let j = 1; j <= 8; j++) {
+        subjectsHtml += `
+          <div class="subject-section">
+            <label>Subject ${j}:</label>
+            <input type="text" name="subject${semesterNumber}_${j}" placeholder="Subject Name" required readonly>
+            <label>Grade:</label>
+            <input type="text" name="grade${semesterNumber}_${j}" placeholder="Grade" required readonly>
+            <label>Internal Marks (3):</label>
+            <input type="number" name="intMark${semesterNumber}_${j}_1" placeholder="Internal 1" required readonly>
+            <input type="number" name="intMark${semesterNumber}_${j}_2" placeholder="Internal 2" required readonly>
+            <input type="number" name="intMark${semesterNumber}_${j}_3" placeholder="Internal 3" required readonly>
+          </div>
+        `;
+      }
+      return `
+        <div class="semester-section" id="semester${semesterNumber}">
+          <div class="semester-header">
+            <h3>Semester ${semesterNumber}</h3>
+            <label for="cgpa${semesterNumber}">CGPA:</label>
+            <input type="number" id="cgpa${semesterNumber}" name="cgpa${semesterNumber}" step="0.01" required readonly style="max-width: 80px;">
+            <button type="button" id="editBtn${semesterNumber}" class="edit-btn">Edit</button>
+          </div>
+          <div id="subjectDetails${semesterNumber}" class="hidden">
+            <h4>Subject Grades and Internal Marks</h4>
+            ${subjectsHtml}
+          </div>
+        </div>
+      `;
+    }
+
+    // Generate and insert semester sections
+    const semesterContainer = document.getElementById('semesterContainer');
+    for (let i = 1; i <= 8; i++) {
+      semesterContainer.innerHTML += createSemesterSection(i);
+    }
+
+    // Function to toggle edit/view mode for CGPA and subject details
+    for (let i = 1; i <= 8; i++) {
+      document.getElementById(`editBtn${i}`).addEventListener('click', function() {
+        const cgpaInput = document.getElementById(`cgpa${i}`);
+        const subjectDetails = document.getElementById(`subjectDetails${i}`);
+        const subjectInputs = subjectDetails.querySelectorAll('input');
+        const isReadOnly = cgpaInput.readOnly;
+
+        // Toggle read-only attribute for CGPA input
+        cgpaInput.readOnly = !isReadOnly;
+
+        // Toggle read-only state for all subject inputs
+        subjectInputs.forEach(input => {
+          input.readOnly = !isReadOnly;
+        });
+
+        // Change button text based on current state
+        this.textContent = isReadOnly ? 'Save' : 'Edit';
+
+        // Show/hide subject details
+        if (isReadOnly) {
+          subjectDetails.classList.remove('hidden'); // Show when editing
+          cgpaInput.focus(); // Focus on the input when editing
+        } else {
+          subjectDetails.classList.add('hidden'); // Hide when not editing
+        }
+      });
+      
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skills Update Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .skills-form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .skills-form h2, .skills-form h3 {
+      text-align: center;
+      color: #333;
+    }
+
+    .skills-form label {
+      font-weight: bold;
+    }
+
+    .skills-form input[type="text"],
+    .skills-form input[type="number"],
+    .skills-form select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .skills-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      height: 100px;
+    }
+
+    .skills-form input[type="file"] {
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    .skills-form button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .skills-form button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="skills-form">
+    <h2>Student Skills Update</h2>
+    <form id="skillsForm">
+      <!-- Major Information -->
+      <label for="major">Major:</label>
+      <input type="text" id="major" name="major" required>
+
+      <!-- Technical Skills -->
+      <h3>Technical Skills</h3>
+      <label for="technicalSkills">Skills (e.g., Programming Languages, Tools):</label>
+      <textarea id="technicalSkills" name="technicalSkills" placeholder="List your technical skills" required></textarea>
+
+      <label for="technicalExperience">Experience Level:</label>
+      <select id="technicalExperience" name="technicalExperience" required>
+        <option value="">Select Experience Level</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+
+      <!-- Soft Skills -->
+      <h3>Soft Skills</h3>
+      <label for="softSkills">Skills (e.g., Communication, Teamwork):</label>
+      <textarea id="softSkills" name="softSkills" placeholder="List your soft skills" required></textarea>
+
+      <label for="softExperience">Experience Level:</label>
+      <select id="softExperience" name="softExperience" required>
+        <option value="">Select Experience Level</option>
+        <option value="Beginner">Beginner</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Advanced">Advanced</option>
+      </select>
+
+      <!-- Certifications -->
+      <h3>Certifications</h3>
+      <label for="certifications">List of Certifications:</label>
+      <textarea id="certifications" name="certifications" placeholder="List your certifications" required></textarea>
+
+      <label for="certificateImages">Upload Certificate Images:</label>
+      <input type="file" id="certificateImages" name="certificateImages" accept="image/*" multiple required>
+
+      <!-- Submit Button -->
+      <button type="submit">Update Skills</button>
+    </form>
+  </div>
+
+  <script>
+    // Form submission handler (can be customized to save data)
+    document.getElementById('skillsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const major = document.getElementById('major').value;
+      const technicalSkills = document.getElementById('technicalSkills').value;
+      const technicalExperience = document.getElementById('technicalExperience').value;
+      const softSkills = document.getElementById('softSkills').value;
+      const softExperience = document.getElementById('softExperience').value;
+      const certifications = document.getElementById('certifications').value;
+      const certificateImages = document.getElementById('certificateImages').files; // Get the uploaded files
+
+      // Displaying the form data in the console
+      console.log({
+        major,
+        technicalSkills,
+        technicalExperience,
+        softSkills,
+        softExperience,
+        certifications,
+        certificateImages: certificateImages.length ? Array.from(certificateImages).map(file => file.name) : "No files uploaded"
+      });
+
+      // You can replace the above with code to save this information, e.g., sending it to a server.
+      alert('Skills updated successfully!');
+    });
+  </script>
+</body>
+</html>

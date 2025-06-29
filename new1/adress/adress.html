@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Address Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      height: 100vh;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      width: 80%;
+      max-width: 1200px;
+      margin: 20px;
+      gap: 20px;
+    }
+    .address-form {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      flex: 1;
+      min-width: 300px;
+    }
+    .address-form h2 {
+      text-align: center;
+      color: #333;
+    }
+    .address-form input[type="text"],
+    .address-form select {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .address-form button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .address-form button:hover {
+      background-color: #45a049;
+    }
+    .checkbox-container {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="address-form">
+      <h2>Communication Address</h2>
+      <form id="commAddressForm">
+        <label for="commStreet">Street:</label>
+        <input type="text" id="commStreet" name="commStreet" required>
+
+        <label for="commCity">City:</label>
+        <input type="text" id="commCity" name="commCity" required>
+
+        <label for="commState">State:</label>
+        <input type="text" id="commState" name="commState" required>
+
+        <label for="commCountry">Country:</label>
+        <input type="text" id="commCountry" name="commCountry" required>
+
+        <label for="commPostalCode">Postal Code:</label>
+        <input type="text" id="commPostalCode" name="commPostalCode" required>
+
+        <div class="checkbox-container">
+          <input type="checkbox" id="sameAddress" name="sameAddress" onclick="copyAddress()">
+          <label for="sameAddress">Same as Communication Address</label>
+        </div>
+      </form>
+    </div>
+
+    <div class="address-form">
+      <h2>Permanent Address</h2>
+      <form id="permAddressForm">
+        <label for="permStreet">Street:</label>
+        <input type="text" id="permStreet" name="permStreet" required>
+
+        <label for="permCity">City:</label>
+        <input type="text" id="permCity" name="permCity" required>
+
+        <label for="permState">State:</label>
+        <input type="text" id="permState" name="permState" required>
+
+        <label for="permCountry">Country:</label>
+        <input type="text" id="permCountry" name="permCountry" required>
+
+        <label for="permPostalCode">Postal Code:</label>
+        <input type="text" id="permPostalCode" name="permPostalCode" required>
+
+        <button type="button" onclick="saveAddress()">Save Address</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function copyAddress() {
+      if (document.getElementById('sameAddress').checked) {
+        document.getElementById('permStreet').value = document.getElementById('commStreet').value;
+        document.getElementById('permCity').value = document.getElementById('commCity').value;
+        document.getElementById('permState').value = document.getElementById('commState').value;
+        document.getElementById('permCountry').value = document.getElementById('commCountry').value;
+        document.getElementById('permPostalCode').value = document.getElementById('commPostalCode').value;
+      } else {
+        document.getElementById('permStreet').value = '';
+        document.getElementById('permCity').value = '';
+        document.getElementById('permState').value = '';
+        document.getElementById('permCountry').value = '';
+        document.getElementById('permPostalCode').value = '';
+      }
+    }
+
+    function saveAddress() {
+      const commStreet = document.getElementById('commStreet').value;
+      const commCity = document.getElementById('commCity').value;
+      const commState = document.getElementById('commState').value;
+      const commCountry = document.getElementById('commCountry').value;
+      const commPostalCode = document.getElementById('commPostalCode').value;
+
+      const permStreet = document.getElementById('permStreet').value;
+      const permCity = document.getElementById('permCity').value;
+      const permState = document.getElementById('permState').value;
+      const permCountry = document.getElementById('permCountry').value;
+      const permPostalCode = document.getElementById('permPostalCode').value;
+
+      if (commStreet && commCity && commState && commCountry && commPostalCode &&
+          permStreet && permCity && permState && permCountry && permPostalCode) {
+        alert('Address saved successfully!');
+      } else {
+        alert('Please fill out all fields.');
+      }
+    }
+  </script>
+
+</body>
+</html>

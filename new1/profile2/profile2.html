@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      display: flex;
+      justify-content: center; /* Center form horizontally */
+      align-items: center; /* Center form vertically */
+      height: 100vh; /* Full viewport height */
+      overflow: hidden; /* Prevent scrolling */
+    }
+
+    .profile-form {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 1000px; /* Set max-width to make it better on large screens */
+      box-sizing: border-box;
+      overflow-y: auto; /* Enable scrolling if content overflows */
+      height: 100%; /* Ensure form takes full screen height */
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-form h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 32px; /* Larger heading for full screen view */
+    }
+
+    .profile-form label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .profile-form input[type="text"],
+    .profile-form input[type="email"],
+    .profile-form input[type="date"],
+    .profile-form select,
+    .profile-form input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .profile-form input[type="file"] {
+      padding: 8px;
+    }
+
+    .profile-form button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-form button:hover {
+      background-color: #45a049;
+    }
+
+    .profile-form .image-preview {
+      width: 120px;
+      height: 120px;
+      margin: 10px 0;
+      object-fit: cover;
+      border-radius: 50%;
+      display: none;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .profile-form .image-upload-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    .profile-form .image-upload-container input[type="file"] {
+      width: auto;
+      padding: 5px;
+      display: block;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-row > div {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .form-row label {
+      width: 100%;
+    }
+
+    .board-options-container {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .form-row select {
+      width: 100%;
+    }
+
+    @media screen and (max-width: 768px) {
+      .profile-form {
+        padding: 20px;
+      }
+
+      .profile-form h2 {
+        font-size: 24px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .form-row > div {
+        min-width: 100%;
+      }
+
+      .profile-form button {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="profile-form">
+    <h2>Update Profile</h2>
+    <form id="profileForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <!-- Profile Photo Upload -->
+      <div class="image-upload-container">
+        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" onchange="previewImage(event)">
+      </div>
+      <img id="profileImagePreview" class="image-preview" src="" alt="Profile Image Preview">
+      
+      <img id="profileImagePreview" class="image-preview" src="" alt="Profile Image Preview">
+
+      <div class="form-row">
+        <div>
+          <label for="mobile">Mobile Number:</label>
+          <input type="text" id="mobile" name="mobile" required>
+        </div>
+        <div>
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" name="dob" required>
+        </div>
+      </div>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <div class="form-row">
+        <div>
+          <label for="caste">Caste:</label>
+          <input type="text" id="caste" name="caste">
+        </div>
+        <div>
+          <label for="community">Community:</label>
+          <input type="text" id="community" name="community">
+        </div>
+      </div>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <!-- Primary School Details Section -->
+      <h3>Primary School Details</h3>
+      <div id="primarySchools">
+        <!-- Loop for 5 Primary School Entries -->
+        <div class="primary-entry">
+          <div class="form-row">
+            <div>
+              <label for="primarySchoolName">School Name:</label>
+              <input type="text" class="primarySchoolName" name="primarySchoolName[]">
+            </div>
+            <div>
+              <label for="primarySchoolType">School Type:</label>
+              <select class="primarySchoolType" name="primarySchoolType[]" onchange="toggleBoardOptions('primary')">
+                <option value="">Select School Type</option>
+                <option value="private">Private</option>
+                <option value="government">Government</option>
+                <option value="governmentAided">Government Aided</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="board-options-container">
+            <label for="primaryBoardType">Board Type:</label>
+            <select class="primaryBoardType" name="primaryBoardType[]" onchange="toggleOtherBoardInput('primary')">
+              <option value="">Select Board Type</option>
+              <option value="CBSE">CBSE</option>
+              <option value="StateBoard">State Board</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="primaryOtherBoard" style="display: none;">
+              <label for="primaryOtherBoardText">Specify Other Board:</label>
+              <input type="text" name="primaryOtherBoardText[]">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" onclick="addPrimaryEntry()">Add Another Primary Entry</button>
+
+      <!-- Matriculation School Details Section -->
+      <h3>Matriculation School Details</h3>
+      <div id="matriculationSchools">
+        <!-- Loop for 5 Matriculation School Entries -->
+        <div class="matriculation-entry">
+          <div class="form-row">
+            <div>
+              <label for="matriculationSchoolName">School Name:</label>
+              <input type="text" class="matriculationSchoolName" name="matriculationSchoolName[]">
+            </div>
+            <div>
+              <label for="matriculationSchoolType">School Type:</label>
+              <select class="matriculationSchoolType" name="matriculationSchoolType[]" onchange="toggleBoardOptions('matriculation')">
+                <option value="">Select School Type</option>
+                <option value="private">Private</option>
+                <option value="government">Government</option>
+                <option value="governmentAided">Government Aided</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="board-options-container">
+            <label for="matriculationBoardType">Board Type:</label>
+            <select class="matriculationBoardType" name="matriculationBoardType[]" onchange="toggleOtherBoardInput('matriculation')">
+              <option value="">Select Board Type</option>
+              <option value="CBSE">CBSE</option>
+              <option value="StateBoard">State Board</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="matriculationOtherBoard" style="display: none;">
+              <label for="matriculationOtherBoardText">Specify Other Board:</label>
+              <input type="text" name="matriculationOtherBoardText[]">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" onclick="addMatriculationEntry()">Add Another Matriculation Entry</button>
+
+      <!-- Higher Secondary School Details Section -->
+      <h3>Higher Secondary School Details</h3>
+      <div id="higherSecondarySchools">
+        <!-- Loop for 5 Higher Secondary School Entries -->
+        <div class="higher-secondary-entry">
+          <div class="form-row">
+            <div>
+              <label for="higherSecondarySchoolName">School Name:</label>
+              <input type="text" class="higherSecondarySchoolName" name="higherSecondarySchoolName[]">
+            </div>
+            <div>
+              <label for="higherSecondarySchoolType">School Type:</label>
+              <select class="higherSecondarySchoolType" name="higherSecondarySchoolType[]" onchange="toggleBoardOptions('higherSecondary')">
+                <option value="">Select School Type</option>
+                <option value="private">Private</option>
+                <option value="government">Government</option>
+                <option value="governmentAided">Government Aided</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="board-options-container">
+            <label for="higherSecondaryBoardType">Board Type:</label>
+            <select class="higherSecondaryBoardType" name="higherSecondaryBoardType[]" onchange="toggleOtherBoardInput('higherSecondary')">
+              <option value="">Select Board Type</option>
+              <option value="CBSE">CBSE</option>
+              <option value="StateBoard">State Board</option>
+              <option value="Other">Other</option>
+            </select>
+            <div class="higherSecondaryOtherBoard" style="display: none;">
+              <label for="higherSecondaryOtherBoardText">Specify Other Board:</label>
+              <input type="text" name="higherSecondaryOtherBoardText[]">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" onclick="addHigherSecondaryEntry()">Add Another Higher Secondary Entry</button>
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+  function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const imagePreview = document.getElementById('profileImagePreview');
+      imagePreview.src = reader.result;
+      imagePreview.style.display = 'block';
+      
+      // Hide the file input after image is selected
+      document.getElementById('profilePhoto').style.display = 'none';
+      
+      // Show the "change profile picture" option by clicking the preview image
+      imagePreview.style.cursor = 'pointer';
+      imagePreview.onclick = function() {
+        document.getElementById('profilePhoto').style.display = 'block'; // Show the file input again
+        imagePreview.style.display = 'none'; // Hide the image preview
+      };
+    };
+    reader.readAsDataURL(event.target.files[0]);
+  }
+
+
+
+
+    function toggleBoardOptions(level) {
+      const selectedType = document.querySelector(`.${level}SchoolType`).value;
+      const boardContainer = document.querySelector(`.${level}-entry .board-options-container`);
+      if (selectedType) {
+        boardContainer.style.display = 'block';
+      } else {
+        boardContainer.style.display = 'none';
+      }
+    }
+
+    function toggleOtherBoardInput(level) {
+      const selectedBoard = document.querySelector(`.${level}BoardType`).value;
+      const otherBoardInput = document.querySelector(`.${level}OtherBoard`);
+      if (selectedBoard === 'Other') {
+        otherBoardInput.style.display = 'block';
+      } else {
+        otherBoardInput.style.display = 'none';
+      }
+    }
+
+    function addPrimaryEntry() {
+      const newEntry = document.querySelector('.primary-entry').cloneNode(true);
+      document.getElementById('primarySchools').appendChild(newEntry);
+    }
+
+    function addMatriculationEntry() {
+      const newEntry = document.querySelector('.matriculation-entry').cloneNode(true);
+      document.getElementById('matriculationSchools').appendChild(newEntry);
+    }
+
+    function addHigherSecondaryEntry() {
+      const newEntry = document.querySelector('.higher-secondary-entry').cloneNode(true);
+      document.getElementById('higherSecondarySchools').appendChild(newEntry);
+    }
+    
+  </script>
+</body>
+</html>

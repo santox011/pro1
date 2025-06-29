@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .profile-form {
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 1000px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-form h2,
+    .profile-form h3 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .profile-form label {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .profile-form input[type="text"],
+    .profile-form input[type="email"],
+    .profile-form input[type="date"],
+    .profile-form select,
+    .profile-form input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .profile-form button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 8px;
+      background-color: #4CAF50;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .profile-form button:hover {
+      background-color: #45a049;
+    }
+
+    .form-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .form-row > div {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .image-preview {
+      width: 120px;
+      height: 120px;
+      margin: 10px 0;
+      object-fit: cover;
+      border-radius: 50%;
+      display: none;
+    }
+
+    .image-upload-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .image-upload-container input[type="file"] {
+      width: auto;
+      padding: 5px;
+    }
+
+    .board-options-container {
+      display: none;
+      margin-top: 15px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .profile-form {
+        padding: 20px;
+      }
+
+      .form-row {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .form-row > div {
+        min-width: 100%;
+      }
+
+      .profile-form button {
+        font-size: 14px;
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="profile-form">
+    <h2>Update Profile</h2>
+    <form id="profileForm">
+      <!-- User Details Section -->
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <!-- Profile Photo Upload -->
+      <div class="image-upload-container">
+        <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*" onchange="previewImage(event)">
+      </div>
+      <img id="profileImagePreview" class="image-preview" src="" alt="Profile Image Preview">
+
+      <!-- Contact Details -->
+      <div class="form-row">
+        <div>
+          <label for="mobile">Mobile Number:</label>
+          <input type="text" id="mobile" name="mobile" required>
+        </div>
+        <div>
+          <label for="dob">Date of Birth:</label>
+          <input type="date" id="dob" name="dob" required>
+        </div>
+      </div>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <!-- Demographic Details -->
+      <div class="form-row">
+        <div>
+          <label for="caste">Caste:</label>
+          <input type="text" id="caste" name="caste">
+        </div>
+        <div>
+          <label for="community">Community:</label>
+          <input type="text" id="community" name="community">
+        </div>
+      </div>
+
+      <label for="gender">Gender:</label>
+      <select id="gender" name="gender">
+        <option value="">Select Gender</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <!-- Parent Details Section -->
+      <h3>Parent Details</h3>
+      <div class="form-row">
+        <div>
+          <label for="fatherName">Father's Name:</label>
+          <input type="text" id="fatherName" name="fatherName" required>
+        </div>
+        <div>
+          <label for="fatherOccupation">Father's Occupation:</label>
+          <input type="text" id="fatherOccupation" name="fatherOccupation">
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label for="motherName">Mother's Name:</label>
+          <input type="text" id="motherName" name="motherName" required>
+        </div>
+        <div>
+          <label for="motherOccupation">Mother's Occupation:</label>
+          <input type="text" id="motherOccupation" name="motherOccupation">
+        </div>
+      </div>
+
+      <!-- Sibling Details Section -->
+      <h3>Sibling Details</h3>
+      <div id="siblings">
+        <div class="sibling-entry">
+          <div class="form-row">
+            <div>
+              <label for="siblingName">Sibling's Name:</label>
+              <input type="text" class="siblingName" name="siblingName[]" required>
+            </div>
+            <div>
+              <label for="siblingAge">Sibling's Age:</label>
+              <input type="number" class="siblingAge" name="siblingAge[]" min="0">
+            </div>
+          </div>
+          <div class="form-row">
+            <div>
+              <label for="siblingEducation">Sibling's Education:</label>
+              <input type="text" class="siblingEducation" name="siblingEducation[]">
+            </div>
+            <div>
+              <label for="siblingOccupation">Sibling's Occupation:</label>
+              <input type="text" class="siblingOccupation" name="siblingOccupation[]">
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="button" onclick="addSiblingEntry()">Add Another Sibling</button>
+
+      <!-- School Details Sections -->
+      <!-- Include Primary, Matriculation, Higher Secondary School sections here similarly -->
+
+      <button type="submit">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const imagePreview = document.getElementById('profileImagePreview');
+        imagePreview.src = reader.result;
+        imagePreview.style.display = 'block';
+        document.getElementById('profilePhoto').style.display = 'none';
+        imagePreview.style.cursor = 'pointer';
+        imagePreview.onclick = function () {
+          document.getElementById('profilePhoto').style.display = 'block';
+          imagePreview.style.display = 'none';
+        };
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function addSiblingEntry() {
+      const newEntry = document.querySelector('.sibling-entry').cloneNode(true);
+      newEntry.querySelectorAll('input').forEach(input => input.value = '');
+      document.getElementById('siblings').appendChild(newEntry);
+    }
+  </script>
+</body>
+
+</html>
